@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "blackjack-demo-andrii",
     "source": ".",
     "ignore": [
       "firebase.json",
