@@ -1,5 +1,6 @@
 import Card from '../components/card'
 
+// Card enums
 export enum ShoeType {
   Regular,
   Aces,
@@ -10,6 +11,9 @@ export enum ShoeType {
   ShoeTypeCount,
 }
 
+/**
+ * Card container 
+ */
 class Shoe {
   public static shuffleSpecs: number[][] = [
     [95, 8],
@@ -22,6 +26,7 @@ class Shoe {
     [80, 1],
   ]
 
+  // Shuffles the cards in specified deck
   public static shuffleArray(cards: Card[]) {
     let currentIndex: number = cards.length
     let temporaryValue: Card
@@ -48,6 +53,7 @@ class Shoe {
     this.newRegular = this.newRegular.bind(this)
   }
 
+  // Check if deck needs to be shuffled
   public needToShuffle(): boolean {
     if (this.cards.length === 0) {
       return true
@@ -69,12 +75,20 @@ class Shoe {
     return false
   }
 
+  /**
+   * Shuffles all decks inside the shoe
+   */
   public shuffle(): void {
     for (let i = 0; i < 7; i++) {
       this.cards = Shoe.shuffleArray(this.cards)
     }
   }
 
+  /**
+   * Creates a new shoe with the specified shoe 
+   * 
+   * @param shoeType 
+   */
   public newShoe(shoeType: ShoeType): void {
     switch (shoeType) {
       case ShoeType.Regular:
@@ -98,6 +112,7 @@ class Shoe {
     }
   }
 
+  // Create a regular deck
   public newRegular(): void {
     this.cards = []
 
@@ -112,6 +127,7 @@ class Shoe {
     this.shuffle()
   }
 
+  // Create a deck of eights
   public newEights(): void {
     this.cards = []
 
@@ -124,6 +140,7 @@ class Shoe {
     this.shuffle()
   }
 
+  // Create a deck of sevens
   public newSevens(): void {
     this.cards = []
 
@@ -136,6 +153,7 @@ class Shoe {
     this.shuffle()
   }
 
+  // Create a deck of aces
   public newAces(): void {
     this.cards = []
 
@@ -148,6 +166,7 @@ class Shoe {
     this.shuffle()
   }
 
+  // Create a deck of jacks
   public newJacks(): void {
     this.cards = []
 
@@ -160,6 +179,7 @@ class Shoe {
     this.shuffle()
   }
 
+  // Create a deck of aces & jacks
   public newAcesJacks(): void {
     this.cards = []
 
@@ -173,6 +193,7 @@ class Shoe {
     this.shuffle()
   }
 
+  // Get the next card in the shoe
   public getNextCard(): Card {
     const card = this.cards.pop()
 

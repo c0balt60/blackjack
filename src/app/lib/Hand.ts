@@ -1,6 +1,7 @@
 import Card from '../components/card'
 import Game from '../components/game'
 
+// Enums for states
 export enum Status {
   Unknown,
   Won,
@@ -12,6 +13,10 @@ export enum CountMethod {
   Hard,
 }
 
+/**
+ * Hand class
+ * Container for a single players cards
+ */
 class Hand {
   public game: Game
   public cards: Card[] = []
