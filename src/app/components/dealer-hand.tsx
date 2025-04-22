@@ -3,6 +3,10 @@ import Card from './card'
 import Game from './game'
 import Hand, { CountMethod } from '../lib/hand'
 
+/**
+ * DealerHand container
+ * Contains dealers cards
+ */
 class DealerHand extends React.Component {
   public hideDownCard: boolean = true
   public hand: Hand
@@ -14,6 +18,7 @@ class DealerHand extends React.Component {
     this.hand = new Hand(game)
   }
 
+  // Render the cards
   public render() {
     return (
       <div
@@ -29,6 +34,7 @@ class DealerHand extends React.Component {
     )
   }
 
+  // Generate the cards
   public displayHand(): Hand {
     const h = new Hand(this.game)
     for (let x = 0; x < this.hand.cards.length; x++) {

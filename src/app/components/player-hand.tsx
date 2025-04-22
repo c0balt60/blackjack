@@ -6,6 +6,10 @@ import { MenuType } from './menus/menu'
 
 export const MAX_PLAYER_HANDS: number = 7
 
+/**
+ * PlayerHand container
+ * Contains player cards
+ */
 class PlayerHand extends React.Component<object, object> {
   public static totalPlayerHands: number = 0
 
