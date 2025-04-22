@@ -1,5 +1,5 @@
-import Card from '../components/Card'
-import Game from '../components/Game'
+import Card from '../components/card'
+import Game from '../components/game'
 
 export enum Status {
   Unknown,

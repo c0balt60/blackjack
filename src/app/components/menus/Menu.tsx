@@ -1,12 +1,12 @@
 import React from 'react'
-import Game from '../Game'
-import MenuBet from './MenuBet'
-import MenuDeckCount from './MenuDeckCount'
-import MenuDeckType from './MenuDeckType'
-import MenuGame from './MenuGame'
-import MenuHand from './MenuHand'
-import MenuInsurance from './MenuInsurance'
-import MenuOptions from './MenuOptions'
+import Game from '../game'
+import MenuBet from './menu-bet'
+import MenuDeckCount from './menu-deck-count'
+import MenuDeckType from './menu-deck-type'
+import MenuGame from './menu-game'
+import MenuHand from './menu-hand'
+import MenuInsurance from './menu-insurance'
+import MenuOptions from './menu-options'
 
 export enum MenuType {
   MenuGame,
@@ -22,7 +22,7 @@ interface IPropsType {
   game: Game
 }
 
-class Menu extends React.Component<IPropsType, {}> {
+class Menu extends React.Component<IPropsType, object> {
   public game: Game
 
   constructor(props: IPropsType) {

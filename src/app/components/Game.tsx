@@ -1,12 +1,12 @@
 'use client'
 
 import React from 'react'
-import Card from './Card'
-import DealerHand from './DealerHand'
-import { CountMethod, Status } from '../lib/Hand'
-import Menu, { MenuType } from './menus/Menu'
-import PlayerHand from './PlayerHand'
-import Shoe, { ShoeType } from '../lib/Shoe'
+import Card from './card'
+import DealerHand from './dealer-hand'
+import { CountMethod, Status } from '../lib/hand'
+import Menu, { MenuType } from './menus/menu'
+import PlayerHand from './player-hand'
+import Shoe, { ShoeType } from '../lib/shoe'
 
 type IPropsType = object
 
@@ -61,13 +61,12 @@ class Game extends React.Component {
   constructor(props: IPropsType) {
     super(props)
 
-    this.loadGame()
-
     this.shoe = new Shoe(this.numDecks)
     this.dealerHand = new DealerHand(this)
     this.dealNewHand()
     this.menu = new Menu({ game: this })
 
+    // Bind functions
     this.dealNewHand = this.dealNewHand.bind(this)
     this.insureHand = this.insureHand.bind(this)
     this.noInsurance = this.noInsurance.bind(this)
@@ -333,7 +332,6 @@ class Game extends React.Component {
     }
 
     this.normalizeCurrentBet()
-    this.saveGame()
   }
 
   public gameOptions(): void {
@@ -376,7 +374,6 @@ class Game extends React.Component {
     this.dealNewHand()
     this.currentMenu = MenuType.MenuHand
     this.forceUpdate()
-    this.saveGame()
   }
 
   public normalizeCurrentBet(): void {
@@ -405,7 +402,6 @@ class Game extends React.Component {
 
     this.currentMenu = MenuType.MenuOptions
     this.forceUpdate()
-    this.saveGame()
   }
 
   public normalizeDeckCount(): void {
@@ -428,7 +424,6 @@ class Game extends React.Component {
     this.currentMenu = MenuType.MenuHand
     this.dealNewHand()
     this.forceUpdate()
-    this.saveGame()
   }
 
   public newRegular(): void {
@@ -465,31 +460,6 @@ class Game extends React.Component {
     this.shoeType = ShoeType.Eights
     this.shoe.newEights()
     this.newHandSelected()
-  }
-
-  public saveGame(): void {
-    //const gameState = `${this.money}|${this.currentBet}|${this.numDecks}|${this.shoeType}`
-    //this.cookies.set('gameState', gameState, { path: '/', sameSite: 'strict' })
-  }
-
-  public loadGame(): void {
-    // const gameState = this.cookies.get('gameState')
-    // if (!gameState) return
-    return
-
-    // const parts = gameState.toString().split('|')
-    // this.money = parseInt(parts[0], 10)
-    // this.currentBet = parseInt(parts[1], 10)
-    // this.numDecks = parseInt(parts[2], 10)
-    // this.shoeType = parseInt(parts[3], 10)
-
-    // this.normalizeCurrentBet()
-    // this.normalizeDeckCount()
-    // this.normalizeShoeType()
-
-    // if (this.money <= 0) {
-    //   this.money = START_MONEY
-    // }
   }
 }
 

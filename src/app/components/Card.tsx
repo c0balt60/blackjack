@@ -5,7 +5,7 @@ interface IPropsType {
   suitValue: number
 }
 
-class Card extends React.Component<IPropsType, {}> {
+class Card extends React.Component<IPropsType, object> {
   public static faces: string[][] = [
     ['🂡', '🂱', '🃁', '🃑'],
     ['🂢', '🂲', '🃂', '🃒'],
