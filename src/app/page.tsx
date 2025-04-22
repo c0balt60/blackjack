@@ -1,13 +1,12 @@
-import Game from "./components/Game";
+import Game from "./components/game";
 
 export default function Home() {
   return (
     <>
-      <div id="root"></div>
-      <script>
-        const global = globalThis
-      </script>
-      <Game/>
+      <div id="root">
+        <Game/>
+      </div>
+      
     </>
   );
 }
