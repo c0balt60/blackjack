@@ -3,7 +3,6 @@
 Blackjack game created with the following packages:
 - NextJs
 - React
-- Jest
 - Typescript
 - TailwindCSS
 

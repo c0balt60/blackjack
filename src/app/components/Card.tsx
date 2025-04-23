@@ -5,6 +5,10 @@ interface IPropsType {
   suitValue: number
 }
 
+/**
+ * Card class
+ * Represents a specific card instance
+ */
 class Card extends React.Component<IPropsType, object> {
   public static faces: string[][] = [
     ['🂡', '🂱', '🃁', '🃑'],

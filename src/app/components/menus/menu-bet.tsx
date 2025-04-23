@@ -5,6 +5,9 @@ interface IPropsType {
   game: Game
 }
 
+/**
+ * Menu for updating your bet amount
+ */
 class MenuBet extends React.Component<IPropsType, object> {
   public game: Game
 

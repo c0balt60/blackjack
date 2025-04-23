@@ -5,6 +5,9 @@ interface IPropsType {
   game: Game
 }
 
+/**
+ * Displays the total value of cards in current hand
+ */
 class MenuDeckCount extends React.Component<IPropsType, object> {
   public game: Game
 

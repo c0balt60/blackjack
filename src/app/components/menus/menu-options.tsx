@@ -5,6 +5,9 @@ interface IPropsType {
   game: Game
 }
 
+/**
+ * Display more options
+ */
 class MenuOptions extends React.Component<IPropsType, object> {
   public game: Game
 

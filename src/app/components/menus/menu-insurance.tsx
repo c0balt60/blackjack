@@ -5,6 +5,9 @@ interface IPropsType {
   game: Game
 }
 
+/**
+ * Displays the insurance prompt
+ */
 class MenuInsurance extends React.Component<IPropsType, object> {
   public game: Game
 

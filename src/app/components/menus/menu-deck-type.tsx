@@ -5,6 +5,9 @@ interface IPropsType {
   game: Game
 }
 
+/**
+ * Displays the different menu buttons
+ */
 class MenuDeckType extends React.Component<IPropsType, object> {
   public game: Game
 

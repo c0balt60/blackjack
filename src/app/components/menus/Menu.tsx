@@ -22,6 +22,10 @@ interface IPropsType {
   game: Game
 }
 
+/**
+ * Menu class
+ * Renders the menu components
+ */
 class Menu extends React.Component<IPropsType, object> {
   public game: Game
 
