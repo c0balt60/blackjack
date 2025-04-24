@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainPage renders the game page 1`] = `
+<DocumentFragment>
+  <div
+    class="word black"
+    data-testid="dealer"
+  >
+    Dealer:
+  </div>
+  <div
+    class=""
+  >
+    <span
+      class="card black"
+    >
+      🂮
+    </span>
+    <span
+      class="card black"
+    >
+      🂠
+    </span>
+    <div
+      class="count black"
+    >
+      ⇒ 10
+    </div>
+  </div>
+  <div
+    class="word black"
+    data-testid="player"
+  >
+    Player $100.00:
+  </div>
+  <div
+    class=""
+  >
+    <span>
+      <span
+        class="card black"
+      >
+        🂩
+      </span>
+    </span>
+    <span>
+      <span
+        class="card black"
+      >
+        🃓
+      </span>
+    </span>
+    <div
+      class="count black"
+    >
+      ⇒ 12  $5.00 ⇐  
+    </div>
+  </div>
+  <div
+    class="menu-buttons"
+  >
+    <div
+      class="btn btn-dark"
+    >
+      Double
+    </div>
+    <div
+      class="btn btn-dark"
+    >
+      Hit
+    </div>
+    <div
+      class="btn btn-dark"
+    >
+      Stand
+    </div>
+    <div
+      class="btn btn-dark disabled"
+    >
+      Split
+    </div>
+  </div>
+</DocumentFragment>
+`;
