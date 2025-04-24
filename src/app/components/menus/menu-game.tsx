@@ -6,7 +6,7 @@ interface IPropsType {
 }
 
 /**
- * Display menu buttons
+ * Display pre-game options
  */
 class MenuGame extends React.Component<IPropsType, object> {
   public game: Game
@@ -23,7 +23,7 @@ class MenuGame extends React.Component<IPropsType, object> {
 
     return (
       <div className='menu-buttons'>
-        <div className='btn btn-dark' onClick={this.game.dealNewHand}>
+        <div className='btn btn-dark' data-testid='deal-btn' onClick={this.game.dealNewHand}>
           Deal
         </div>
         <div className='btn btn-dark' onClick={this.game.getNewBet}>

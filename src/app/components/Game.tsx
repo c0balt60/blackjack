@@ -89,11 +89,11 @@ class Game extends React.Component {
   public render() {
     return (
       <>
-        <div className='word black' key='d'>
+        <div className='word black' key='d' data-testid='dealer'>
           Dealer:
         </div>
         {this.dealerHand.render()}
-        <div className='word black' key='p'>
+        <div className='word black' key='p' data-testid='player'>
           Player {Game.formattedMoney(this.money)}:
         </div>
         {this.playerHands.map((playerHand) => {
