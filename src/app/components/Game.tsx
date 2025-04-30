@@ -66,7 +66,7 @@ class Game extends React.Component {
     this.dealNewHand()
     this.menu = new Menu({ game: this })
 
-    // Bind functions
+    // Bind click functions
     this.dealNewHand = this.dealNewHand.bind(this)
     this.getNewBet = this.getNewBet.bind(this)
     this.updateBet = this.updateBet.bind(this)
