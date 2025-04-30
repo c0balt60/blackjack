@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from './card'
 import Game from './game'
-import Hand, { CountMethod } from '../lib/hand'
+import Hand, { CountMethod } from '../utils/hand'
 
 /**
  * DealerHand container
@@ -21,15 +21,11 @@ class DealerHand extends React.Component {
   // Render the cards
   public render() {
     return (
-      <div
-        className={`${Game.isLinux() ? 'linux' : ''}${
-          Game.isWindoze() ? 'windoze' : ''
-        }`}
-      >
+      <div className={`${Game.isWindows() ? 'windows' : ''}`}>
         {this.displayHand().cards.map((card) => {
           return card.render()
         })}
-        <div className='count black'>⇒ {this.getValue(CountMethod.Soft)}</div>
+        <div className='count black'>Total ⇒ {this.getValue(CountMethod.Soft)}</div>
       </div>
     )
   }

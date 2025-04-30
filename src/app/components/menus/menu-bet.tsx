@@ -31,7 +31,7 @@ class MenuBet extends React.Component<IPropsType, object> {
             type='text'
             name='betValue'
             className='form-control'
-            defaultValue={this.game.formattedBet()}
+            defaultValue={this.game.currentBet / 100.0}
           />
           <button className='btn btn-dark'>Update</button>
         </div>

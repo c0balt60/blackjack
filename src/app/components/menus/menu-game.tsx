@@ -29,9 +29,6 @@ class MenuGame extends React.Component<IPropsType, object> {
         <div className='btn btn-dark' onClick={this.game.getNewBet}>
           Bet
         </div>
-        <div className='btn btn-dark' onClick={this.game.gameOptions}>
-          Options
-        </div>
       </div>
     )
   }

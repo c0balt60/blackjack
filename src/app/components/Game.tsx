@@ -3,10 +3,10 @@
 import React from 'react'
 import Card from './card'
 import DealerHand from './dealer-hand'
-import { CountMethod, Status } from '../lib/hand'
+import { CountMethod, Status } from '../utils/hand'
 import Menu, { MenuType } from './menus/menu'
 import PlayerHand from './player-hand'
-import Shoe, { ShoeType } from '../lib/shoe'
+import Shoe, { ShoeType } from '../utils/shoe'
 
 type IPropsType = object
 
@@ -16,18 +16,17 @@ const MIN_NUM_DECKS: number = 1
 const MAX_NUM_DECKS: number = 8
 const START_MONEY: number = 10000
 
+/**
+ * Primary game component
+ */
 class Game extends React.Component {
-  public static isLinux(): boolean {
-    return (
-      navigator.userAgent.indexOf('Linux') > -1 ||
-      navigator.userAgent.indexOf('X11') > -1
-    )
-  }
 
-  public static isWindoze(): boolean {
+  // Is window for determining sizings (disabled)
+  public static isWindows(): boolean {
     return navigator.userAgent.indexOf('Windows') > -1
   }
 
+  // Check if card combination results in blackjack
   public static isBlackjack(cards: Card[]): boolean {
     if (cards.length !== 2) {
       return false
@@ -39,6 +38,7 @@ class Game extends React.Component {
     )
   }
 
+  // Format money value into USD
   public static formattedMoney(value: number): string {
     return (value / 100.0).toLocaleString('en-US', {
       style: 'currency',
@@ -68,24 +68,16 @@ class Game extends React.Component {
 
     // Bind functions
     this.dealNewHand = this.dealNewHand.bind(this)
-    this.insureHand = this.insureHand.bind(this)
-    this.noInsurance = this.noInsurance.bind(this)
     this.getNewBet = this.getNewBet.bind(this)
     this.updateBet = this.updateBet.bind(this)
-    this.gameOptions = this.gameOptions.bind(this)
     this.optionsBack = this.optionsBack.bind(this)
     this.getDeckType = this.getDeckType.bind(this)
     this.getDeckCount = this.getDeckCount.bind(this)
-    this.updateDeckCount = this.updateDeckCount.bind(this)
     this.newRegular = this.newRegular.bind(this)
-    this.newAces = this.newAces.bind(this)
-    this.newJacks = this.newJacks.bind(this)
-    this.newAcesJacks = this.newAcesJacks.bind(this)
-    this.newSevens = this.newSevens.bind(this)
-    this.newEights = this.newEights.bind(this)
     this.splitCurrentHand = this.splitCurrentHand.bind(this)
   }
 
+  // Render the component
   public render() {
     return (
       <>
@@ -112,9 +104,13 @@ class Game extends React.Component {
     this.mounted = false
   }
 
+  /**
+   * Deals a new hand to the player and dealer
+   * @returns null
+   */
   public dealNewHand(): void {
     if (this.shoe.needToShuffle()) {
-      this.shoe.newShoe(this.shoeType)
+      this.shoe.newShoe()
     }
 
     this.playerHands = []
@@ -124,20 +120,10 @@ class Game extends React.Component {
     this.currentPlayerHandIndex = 0
 
     this.dealerHand = new DealerHand(this)
-
     this.dealerHand.hand.dealCard()
     playerHand.hand.dealCard()
     this.dealerHand.hand.dealCard()
     playerHand.hand.dealCard()
-
-    if (
-      this.dealerHand.upCardIsAce() &&
-      !Game.isBlackjack(playerHand.hand.cards)
-    ) {
-      this.currentMenu = MenuType.MenuInsurance
-      this.forceUpdateIfMounted()
-      return
-    }
 
     if (playerHand.isDone()) {
       this.dealerHand.hideDownCard = false
@@ -155,12 +141,6 @@ class Game extends React.Component {
     if (this.mounted) {
       this.forceUpdate()
     }
-  }
-
-  public formattedBet(): string {
-    return (this.currentBet / 100.0).toLocaleString('en-US', {
-      style: 'decimal',
-    })
   }
 
   public currentPlayerHand(): PlayerHand {
@@ -265,44 +245,6 @@ class Game extends React.Component {
     this.payHands()
   }
 
-  public insureHand(): void {
-    const playerHand = this.currentPlayerHand()
-
-    playerHand.bet /= 2
-    playerHand.hand.played = true
-    playerHand.paid = true
-    playerHand.status = Status.Lost
-
-    this.money -= playerHand.bet
-
-    this.currentMenu = MenuType.MenuGame
-    this.forceUpdate()
-  }
-
-  public noInsurance(): void {
-    if (Game.isBlackjack(this.dealerHand.hand.cards)) {
-      this.dealerHand.hideDownCard = false
-      this.dealerHand.hand.played = true
-
-      this.payHands()
-
-      this.currentMenu = MenuType.MenuGame
-      this.forceUpdate()
-      return
-    }
-
-    const playerHand = this.currentPlayerHand()
-    if (playerHand.isDone()) {
-      this.playDealerHand()
-      this.currentMenu = MenuType.MenuGame
-      this.forceUpdate()
-      return
-    }
-
-    this.currentMenu = MenuType.MenuHand
-    this.forceUpdate()
-  }
-
   public payHands(): void {
     const dhv = this.dealerHand.getValue(CountMethod.Soft)
     const dhb = this.dealerHand.isBusted()
@@ -332,11 +274,6 @@ class Game extends React.Component {
     }
 
     this.normalizeCurrentBet()
-  }
-
-  public gameOptions(): void {
-    this.currentMenu = MenuType.MenuOptions
-    this.forceUpdate()
   }
 
   public getDeckCount(): void {
@@ -388,22 +325,6 @@ class Game extends React.Component {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public updateDeckCount(event: any): void {
-    event.preventDefault()
-    const data = new FormData(event.target)
-
-    const deckCountValue = data.get('deckCountValue')
-    if (deckCountValue === null) {
-      return
-    }
-    this.numDecks = parseInt(deckCountValue.toString(), 10)
-    this.normalizeDeckCount()
-
-    this.currentMenu = MenuType.MenuOptions
-    this.forceUpdate()
-  }
-
   public normalizeDeckCount(): void {
     if (this.numDecks < MIN_NUM_DECKS) {
       this.numDecks = MIN_NUM_DECKS
@@ -429,36 +350,6 @@ class Game extends React.Component {
   public newRegular(): void {
     this.shoeType = ShoeType.Regular
     this.shoe.newRegular()
-    this.newHandSelected()
-  }
-
-  public newAces(): void {
-    this.shoeType = ShoeType.Aces
-    this.shoe.newAces()
-    this.newHandSelected()
-  }
-
-  public newJacks(): void {
-    this.shoeType = ShoeType.Jacks
-    this.shoe.newJacks()
-    this.newHandSelected()
-  }
-
-  public newAcesJacks(): void {
-    this.shoeType = ShoeType.AcesJacks
-    this.shoe.newAcesJacks()
-    this.newHandSelected()
-  }
-
-  public newSevens(): void {
-    this.shoeType = ShoeType.Sevens
-    this.shoe.newSevens()
-    this.newHandSelected()
-  }
-
-  public newEights(): void {
-    this.shoeType = ShoeType.Eights
-    this.shoe.newEights()
     this.newHandSelected()
   }
 }

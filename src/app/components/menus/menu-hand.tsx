@@ -6,7 +6,7 @@ interface IPropsType {
 }
 
 /**
- * Displays the state for hand actions
+ * Component for playing cards in hand
  */
 class MenuGame extends React.Component<IPropsType, object> {
   public game: Game

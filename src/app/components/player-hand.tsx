@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from './card'
 import Game from './game'
-import Hand, { CountMethod, Status } from '../lib/hand'
+import Hand, { CountMethod, Status } from '../utils/hand'
 import { MenuType } from './menus/menu'
 
 export const MAX_PLAYER_HANDS: number = 7
@@ -48,9 +48,7 @@ class PlayerHand extends React.Component<object, object> {
   }
 
   public render() {
-    const className = `${Game.isLinux() ? 'linux' : ''}${
-      Game.isWindoze() ? 'windoze' : ''
-    }`
+    const className = `${Game.isWindows() ? 'windows' : ''}`
 
     return (
       <div className={className} key={`phs-${this.playerHandID}`}>
@@ -58,7 +56,7 @@ class PlayerHand extends React.Component<object, object> {
           return <span key={`ph-${card.cardID}-${key}`}>{card.render()}</span>
         })}
         <div className='count black'>
-          ⇒ {this.getValue(CountMethod.Soft)} &nbsp;
+          Total ⇒ {this.getValue(CountMethod.Soft)} &nbsp;
           {this.statusDisplay()}
           {this.betDisplay()}
           {this.currentHandDisplay()} &nbsp;
@@ -264,7 +262,7 @@ class PlayerHand extends React.Component<object, object> {
 
   public currentHandDisplay(): string {
     if (!this.hand.played && this.game.currentPlayerHand() === this) {
-      return ' ⇐'
+      return ' ⇐ Bet'
     }
 
     return ''
